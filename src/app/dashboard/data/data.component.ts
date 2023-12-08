@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { BackendService } from 'src/app/shared/backend.service';
 import { CHILDREN_PER_PAGE } from 'src/app/shared/constants';
 import { StoreService } from 'src/app/shared/store.service';
@@ -30,8 +31,9 @@ export class DataComponent implements OnInit {
     return age;
   }
 
-  selectPage(i: any) {
-    let currentPage = i;
+  selectPage(event: PageEvent) {
+    let currentPage = (event.pageIndex-1) + event.pageSize;
+    console.log(currentPage);
     this.selectPageEvent.emit(currentPage)
     this.backendService.getChildren(currentPage);
   }
@@ -47,6 +49,10 @@ export class DataComponent implements OnInit {
 
   public cancelRegistration(childId: string) {
     this.backendService.deleteChildData(childId, this.currentPage);
+  }
+
+  getChildrenPerPageCount() {
+    return CHILDREN_PER_PAGE;
   }
 }
 

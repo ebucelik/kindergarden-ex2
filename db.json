@@ -173,6 +173,12 @@
       "kindergardenId": 4,
       "birthDate": "2023-12-28T23:00:00.000Z",
       "id": "3NVWAsG"
+    },
+    {
+      "name": "Ebu",
+      "kindergardenId": 3,
+      "birthDate": "2023-12-26T23:00:00.000Z",
+      "id": "e_e3TCF"
     }
   ],
   "kindergardens": [
