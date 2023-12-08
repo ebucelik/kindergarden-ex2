@@ -4,10 +4,21 @@
         <mat-form-field>
           <mat-label>Name des Kindes</mat-label>
           <input matInput type="input" formControlName="name" placeholder="Max Mustermann" required>
-          <mat-error>{{getErrorMessage()}}</mat-error>
+          <mat-error>{{getErrorMessage("name")}}</mat-error>
         </mat-form-field>
-    </div>      
-    <input placeholder="Geburtsdatum" type="date" formControlName="birthDate"><br />
+    </div>
+
+    <div class="date-container">
+        <mat-form-field>
+            <mat-label>Datum</mat-label>
+            <input matInput [matDatepicker]="birthDate" formControlName="birthDate" required>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="birthDate"></mat-datepicker-toggle>
+            <mat-datepicker #birthDate></mat-datepicker>
+            <mat-error>{{getErrorMessage("birthDate")}}</mat-error>
+        </mat-form-field>
+    </div>
+
     <select formControlName="kindergardenId">
         <option value="" disabled>Bitte auswählen</option>
         <option *ngFor="let kindergarden of storeService.kindergardens" [ngValue]="kindergarden.id">

@@ -16,7 +16,7 @@ export class AddDataComponent implements OnInit{
 
   ngOnInit(): void {
     this.addChildForm = this.formbuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       kindergardenId: ['', Validators.required],
       birthDate: [null, Validators.required]
     })
@@ -29,15 +29,19 @@ export class AddDataComponent implements OnInit{
     }
   }
 
-  getErrorMessage() {
-    var name = this.addChildForm.get('name');
-    
-    if (name.hasError('required')) {
-      return 'Bitte Name des Kindes eingeben.';
+  getErrorMessage(component: string) {
+    var field = this.addChildForm.get(component);
+
+    if (field.hasError('required')) {
+      return 'Die Eingabe darf nicht leer sein.';
     }
 
-    if (name.hasError('minlength')) {
-      return 'Bitte gültigen Namen eingeben.';
+    if (field.hasError('minlength')) {
+      return 'Bitte eine gültige Eingabe tätigen.';
+    }
+
+    if (field.hasError('maxlength')) {
+      return 'Die Eingabe überschreitet die maximale Länge.';
     }
 
     return '';
