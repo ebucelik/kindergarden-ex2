@@ -1,6 +1,12 @@
 <form [formGroup]="addChildForm" (ngSubmit)="onSubmit()">
     <h2>Ihr Kind anmelden!</h2>
-    <input placeholder="Name" type="input" formControlName="name"><br />
+    <div class="name-container">
+        <mat-form-field>
+          <mat-label>Name des Kindes</mat-label>
+          <input matInput type="input" formControlName="name" placeholder="Max Mustermann" required>
+          <mat-error>{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div>      
     <input placeholder="Geburtsdatum" type="date" formControlName="birthDate"><br />
     <select formControlName="kindergardenId">
         <option value="" disabled>Bitte auswählen</option>

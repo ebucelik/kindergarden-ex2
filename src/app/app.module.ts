@@ -10,6 +10,9 @@ import { AddDataComponent } from './dashboard/add-data/add-data.component';
 import { HeaderComponent } from './header/header.component';
 import { ButtonComponent } from './dashboard/button/button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormControl} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule, 
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
