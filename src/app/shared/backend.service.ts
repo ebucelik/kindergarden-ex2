@@ -26,9 +26,10 @@ export class BackendService {
     });
     }
 
-    public addChildData(child: Child, page:  number) {
+    public addChildData(child: Child, page: number, onChildAdded: () => void) {
       this.http.post('http://localhost:5000/childs', child).subscribe(_ => {
         this.getChildren(page);
+        onChildAdded();
       })
     }
 

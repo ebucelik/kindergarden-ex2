@@ -1,4 +1,8 @@
 <form [formGroup]="addChildForm" (ngSubmit)="onSubmit()">
+    <div class="alert alert-success" role="alert" *ngIf="showChildAddedAlert">
+        {{addChildForm.get('name').value}} wurde erfolgreich eingetragen!
+    </div>
+
     <h2>Ihr Kind anmelden!</h2>
     <div class="name-container">
         <mat-form-field>
