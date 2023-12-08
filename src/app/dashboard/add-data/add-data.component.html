@@ -19,10 +19,17 @@
         </mat-form-field>
     </div>
 
-    <select formControlName="kindergardenId">
-        <option value="" disabled>Bitte auswählen</option>
-        <option *ngFor="let kindergarden of storeService.kindergardens" [ngValue]="kindergarden.id">
-            {{kindergarden.name}}, {{kindergarden.address}}</option>
-    </select>
-    <button type="submit">Erfassen</button>
+    <div class="select-container">
+        <mat-form-field>
+            <mat-label>Kindergarten auswählen</mat-label>
+            <mat-select formControlName="kindergardenId">
+                <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.id">
+                    {{kindergarden.name}}, {{kindergarden.address}}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{getErrorMessage("kindergardenId")}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">Kind eintragen</button>
 </form>
