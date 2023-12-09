@@ -14,6 +14,7 @@ export class AddDataComponent implements OnInit{
   public addChildForm: any;
   @Input() currentPage!: number;
   public showChildAddedAlert: boolean = false;
+  public isLoading: boolean = false;
   public showAddData = true;
 
   ngOnInit(): void {
@@ -25,17 +26,28 @@ export class AddDataComponent implements OnInit{
   }
 
   onSubmit() {
-    if(this.addChildForm.valid) {
-      console.log(this.currentPage);
-      this.backendService.addChildData(this.addChildForm.value, this.currentPage, () => {
-        this.showChildAddedAlert = true;
-        setTimeout(() => {this.hideChildAddedAlert()}, 3000);
-      });
+    if (this.addChildForm.valid) {
+      this.isLoading = true;
+
+      this.backendService.addChildData(
+        this.addChildForm.value,
+        this.currentPage,
+        () => {
+          this.showChildAddedAlert = true;
+          this.isLoading = false;
+          setTimeout(() => { this.hideChildAddedAlert() }, 3000);
+        }
+      );
     }
   }
 
   hideChildAddedAlert() {
     this.showChildAddedAlert = false;
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.ngOnInit();
   }
 
   getErrorMessage(component: string) {
