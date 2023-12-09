@@ -4,7 +4,7 @@ UX Review einarbeiten - Programmierübung 2
 ### Consistent wording:
 1. Button hatten inkonsitente Benennungen
 2. Inputs und Placeholder hatten inkonsistente Benenungen
-3. Kind eintragen Button Font größer stellen um es als ein primary Button raus stechen zu lassen
+3. Kind eintragen Button Font Uppercase stellen um es als ein primary Button raus stechen zu lassen
 ### Feedback:
 4. Loading indicator nicht angezeigt, wenn Kind gespeichert
 ### Buttons:
