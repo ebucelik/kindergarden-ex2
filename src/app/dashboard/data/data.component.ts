@@ -15,6 +15,7 @@ export class DataComponent implements OnInit {
   @Input() currentPage!: number;
   @Output() selectPageEvent = new EventEmitter<number>();
   public page: number = 0;
+  public isLoading: boolean = false;
 
   ngOnInit(): void {
     this.backendService.getChildren(this.currentPage, () => {});
@@ -48,7 +49,15 @@ export class DataComponent implements OnInit {
   }
 
   public cancelRegistration(childId: string) {
-    this.backendService.deleteChildData(childId, this.currentPage);
+    this.isLoading = true;
+    
+    this.backendService.deleteChildData(
+      childId, 
+      this.currentPage,
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
 
   getChildrenPerPageCount() {

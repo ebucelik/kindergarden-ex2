@@ -1,26 +1,29 @@
 <div class="container">
-    <div class="row justify-content-center align-items-center">
-        <p class="col-xl-2 col-lg-3">Name</p>
-        <p class="col-xl-2 col-lg-3">Kindergarten</p>
-        <p class="col-xl-1 col-lg-1">Adresse</p>
-        <p class="col-xl-1 col-lg-1">Alter</p>
-        <p class="col-xl-1 col-lg-1">Geburtsdatum</p>
-        <p class="col-xl-1 col-lg-1"></p>
-    </div>
-    <div *ngFor="let child of storeService.children" class="row justify-content-center align-items-center">
-        <p class="col-xl-2 col-lg-3">{{child.name}}</p>
-        <p class="col-xl-2 col-lg-3">{{child.kindergarden.name}}</p>
-        <p class="col-xl-1 col-lg-1">{{child.kindergarden.address}}</p>
-        <p class="col-xl-1 col-lg-1">{{getAge(child.birthDate)}}</p>
-        <p class="col-xl-1 col-lg-1">{{child.birthDate | date:'longDate'}}</p>
-        <div class="col-xl-1 col-lg-1">
-            <button mat-raised-button color="secondary" (click)="cancelRegistration(child.id)">KIND ABMELDEN</button>
+    <mat-spinner *ngIf="isLoading" style="height: 30px; margin: 0 auto;"></mat-spinner>
+    <div *ngIf="!isLoading">
+        <div class="row justify-content-center align-items-center">
+            <p class="col-xl-2 col-lg-3">Name</p>
+            <p class="col-xl-2 col-lg-3">Kindergarten</p>
+            <p class="col-xl-1 col-lg-1">Adresse</p>
+            <p class="col-xl-1 col-lg-1">Alter</p>
+            <p class="col-xl-1 col-lg-1">Geburtsdatum</p>
+            <p class="col-xl-1 col-lg-1"></p>
         </div>
+        <div *ngFor="let child of storeService.children" class="row justify-content-center align-items-center">
+            <p class="col-xl-2 col-lg-3">{{child.name}}</p>
+            <p class="col-xl-2 col-lg-3">{{child.kindergarden.name}}</p>
+            <p class="col-xl-1 col-lg-1">{{child.kindergarden.address}}</p>
+            <p class="col-xl-1 col-lg-1">{{getAge(child.birthDate)}}</p>
+            <p class="col-xl-1 col-lg-1">{{child.birthDate | date:'longDate'}}</p>
+            <div class="col-xl-1 col-lg-1">
+                <button mat-raised-button color="secondary" (click)="cancelRegistration(child.id)">KIND ABMELDEN</button>
+            </div>
+        </div>
+    
+        <mat-paginator [length]="returnAllPages().length"
+                  [pageSize]="getChildrenPerPageCount()"
+                  (page)="selectPage($event)"
+                  aria-label="Select page">
+        </mat-paginator>
     </div>
-
-    <mat-paginator [length]="returnAllPages().length"
-              [pageSize]="getChildrenPerPageCount()"
-              (page)="selectPage($event)"
-              aria-label="Select page">
-    </mat-paginator>
 </div>

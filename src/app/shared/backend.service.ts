@@ -32,9 +32,9 @@ export class BackendService {
       })
     }
 
-    public deleteChildData(childId: string, page: number) {
+    public deleteChildData(childId: string, page: number, onChildDeleted: () => void) {
       this.http.delete(`http://localhost:5000/childs/${childId}`).subscribe(_=> {
-        this.getChildren(page, () => {});
+        this.getChildren(page, onChildDeleted);
       })
     }
   }
