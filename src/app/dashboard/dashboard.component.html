@@ -1,4 +1,3 @@
 <app-data [currentPage]="currentPage" (selectPageEvent)="receiveMessage($event)"></app-data>
 <br>
-<app-button [showAddData]="showAddData" (toggleButtonClickEvent)="toggleButtonClicked($event)"></app-button>
-<app-add-data *ngIf="showAddData" [currentPage]="currentPage"></app-add-data>
+<app-add-data [currentPage]="currentPage"></app-add-data>

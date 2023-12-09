@@ -14,6 +14,7 @@ export class AddDataComponent implements OnInit{
   public addChildForm: any;
   @Input() currentPage!: number;
   public showChildAddedAlert: boolean = false;
+  public showAddData = true;
 
   ngOnInit(): void {
     this.addChildForm = this.formbuilder.group({
@@ -53,5 +54,9 @@ export class AddDataComponent implements OnInit{
     }
 
     return '';
+  }
+
+  toggleButtonClicked(showAddData: boolean) {
+    this.showAddData = showAddData;
   }
 }

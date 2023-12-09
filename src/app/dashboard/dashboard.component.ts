@@ -7,14 +7,8 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
   public currentPage: number = 1;
-  public showAddData = true;
 
   receiveMessage(newPageCount: number) {
     this.currentPage = newPageCount;
   }
-
-  toggleButtonClicked(showAddData: boolean) {
-    this.showAddData = showAddData;
-  }
-
 }

@@ -1,39 +1,43 @@
-<form [formGroup]="addChildForm" (ngSubmit)="onSubmit()">
-    <div class="alert alert-success" role="alert" *ngIf="showChildAddedAlert">
-        {{addChildForm.get('name').value}} wurde erfolgreich eingetragen!
-    </div>
+<div id="add-data-container">
+    <app-button [showAddData]="showAddData" (toggleButtonClickEvent)="toggleButtonClicked($event)"></app-button>
 
-    <h2>Ihr Kind anmelden!</h2>
-    <div class="name-container">
-        <mat-form-field>
-          <mat-label>Name des Kindes</mat-label>
-          <input matInput type="input" formControlName="name" placeholder="Max Mustermann" required>
-          <mat-error>{{getErrorMessage("name")}}</mat-error>
-        </mat-form-field>
-    </div>
+    <form *ngIf="showAddData" [formGroup]="addChildForm" (ngSubmit)="onSubmit()">
+        <div class="alert alert-success" role="alert" *ngIf="showChildAddedAlert">
+            {{addChildForm.get('name').value}} wurde erfolgreich eingetragen!
+        </div>
 
-    <div class="date-container">
-        <mat-form-field>
-            <mat-label>Datum</mat-label>
-            <input matInput [matDatepicker]="birthDate" formControlName="birthDate" required>
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="birthDate"></mat-datepicker-toggle>
-            <mat-datepicker #birthDate></mat-datepicker>
-            <mat-error>{{getErrorMessage("birthDate")}}</mat-error>
-        </mat-form-field>
-    </div>
+        <h2>Ihr Kind anmelden</h2>
+        <div class="name-container">
+            <mat-form-field>
+            <mat-label>Name des Kindes</mat-label>
+            <input matInput type="input" formControlName="name" placeholder="Max Mustermann" required>
+            <mat-error>{{getErrorMessage("name")}}</mat-error>
+            </mat-form-field>
+        </div>
 
-    <div class="select-container">
-        <mat-form-field>
-            <mat-label>Kindergarten auswählen</mat-label>
-            <mat-select formControlName="kindergardenId">
-                <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.id">
-                    {{kindergarden.name}}, {{kindergarden.address}}
-                </mat-option>
-            </mat-select>
-            <mat-error>{{getErrorMessage("kindergardenId")}}</mat-error>
-        </mat-form-field>
-    </div>
+        <div class="date-container">
+            <mat-form-field>
+                <mat-label>Datum</mat-label>
+                <input matInput [matDatepicker]="birthDate" formControlName="birthDate" required>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="birthDate"></mat-datepicker-toggle>
+                <mat-datepicker #birthDate></mat-datepicker>
+                <mat-error>{{getErrorMessage("birthDate")}}</mat-error>
+            </mat-form-field>
+        </div>
 
-    <button mat-raised-button color="primary" type="submit">Kind eintragen</button>
-</form>
+        <div class="select-container">
+            <mat-form-field>
+                <mat-label>Kindergarten auswählen</mat-label>
+                <mat-select formControlName="kindergardenId">
+                    <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.id">
+                        {{kindergarden.name}}, {{kindergarden.address}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>{{getErrorMessage("kindergardenId")}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit">KIND EINTRAGEN</button>
+    </form>
+</div>
