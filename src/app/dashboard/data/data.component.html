@@ -14,7 +14,7 @@
         <p class="col-xl-1 col-lg-1">{{getAge(child.birthDate)}}</p>
         <p class="col-xl-1 col-lg-1">{{child.birthDate | date:'longDate'}}</p>
         <div class="col-xl-1 col-lg-1">
-            <button (click)="cancelRegistration(child.id)">Kind abmelden</button>
+            <button mat-raised-button color="secondary" (click)="cancelRegistration(child.id)">KIND ABMELDEN</button>
         </div>
     </div>
 
