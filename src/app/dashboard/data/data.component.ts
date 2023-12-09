@@ -18,7 +18,14 @@ export class DataComponent implements OnInit {
   public isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.backendService.getChildren(this.currentPage, () => {});
+    this.isLoading = true;
+    
+    this.backendService.getChildren(
+      this.currentPage, 
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
 
   getAge(birthDate: string) {
@@ -50,7 +57,7 @@ export class DataComponent implements OnInit {
 
   public cancelRegistration(childId: string) {
     this.isLoading = true;
-    
+
     this.backendService.deleteChildData(
       childId, 
       this.currentPage,
