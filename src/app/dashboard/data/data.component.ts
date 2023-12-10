@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { BackendService } from 'src/app/shared/backend.service';
 import { CHILDREN_PER_PAGE } from 'src/app/shared/constants';
 import { StoreService } from 'src/app/shared/store.service';
-import { MAT_SORT_DEFAULT_OPTIONS, MatSort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChildResponse } from 'src/app/shared/interfaces/Child';
 
@@ -16,7 +16,6 @@ export class DataComponent implements OnInit, AfterViewInit {
 
   constructor(public storeService: StoreService, private backendService: BackendService) {
     this.dataSource = new MatTableDataSource(storeService.children);
-    this.sort = new MatSort();
   }
   @Input() currentPage!: number;
   @Output() selectPageEvent = new EventEmitter<number>();
@@ -25,8 +24,17 @@ export class DataComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = ['name', 'kindergarden', 'address', 'age', 'birthdate', 'registrationDate', 'cancelRegistration'];
   public filter: string = "";
   public dataSource: MatTableDataSource<ChildResponse>;
+  public sort!: MatSort;
+  public paginator!: MatPaginator;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.dataSource.sort = ms;
+  }
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.dataSource.paginator = mp;
+  }
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -37,12 +45,17 @@ export class DataComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
         this.dataSource = new MatTableDataSource(this.storeService.children);
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = function(data, filter: string): boolean {
+          return data.kindergarden.name.toLowerCase().includes(filter);
+        };
       }
     );
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   getAge(birthDate: string) {
@@ -58,11 +71,12 @@ export class DataComponent implements OnInit, AfterViewInit {
 
   selectPage(event: PageEvent) {
     let currentPage = (event.pageIndex-1) + event.pageSize;
-    console.log(currentPage);
+
     this.selectPageEvent.emit(currentPage)
     this.backendService.getChildren(currentPage, () => {
       this.dataSource = new MatTableDataSource(this.storeService.children);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -85,11 +99,16 @@ export class DataComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
         this.dataSource = new MatTableDataSource(this.storeService.children);
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     );
   }
 
   getChildrenPerPageCount() {
     return CHILDREN_PER_PAGE;
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLowerCase();
   }
 }

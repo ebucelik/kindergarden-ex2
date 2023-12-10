@@ -2,6 +2,16 @@
     <mat-spinner *ngIf="isLoading" style="height: 30px; margin: 0 auto;"></mat-spinner>
 
     <h2 *ngIf="!isLoading">Anmeldungen</h2>
+
+    <div *ngIf="!isLoading">
+        <mat-form-field>
+            <mat-label>Kindergartenfilter</mat-label>
+            <mat-select (selectionChange)="doFilter($event.value)">
+                <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.name">{{kindergarden.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
     <table *ngIf="!isLoading" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
@@ -44,9 +54,7 @@
 
     <br>
 
-    <mat-paginator [length]="this.storeService.childrenTotalCount"
-                  [pageSize]="getChildrenPerPageCount()"
-                  (page)="selectPage($event)"
-                  aria-label="Select page">
+    <mat-paginator [pageSize]="getChildrenPerPageCount()"
+        aria-label="Select page">
     </mat-paginator>
 </div>
