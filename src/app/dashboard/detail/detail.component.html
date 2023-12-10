@@ -1,1 +1,33 @@
-<p>detail works!</p>
+<div id="details-container">
+    <h2>Verfügbare Kindergärten</h2>
+
+    <table mat-table [dataSource]="storeService.kindergardens" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> Adresse </th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="betreiber">
+          <th mat-header-cell *matHeaderCellDef> Betreiber </th>
+          <td mat-cell *matCellDef="let element"> {{element.betreiber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Bild </th>
+            <td mat-cell *matCellDef="let element"> <img src={{element.image}} height="100px"> </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>      
+</div>
