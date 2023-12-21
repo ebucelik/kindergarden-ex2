@@ -7,6 +7,7 @@
         <mat-form-field>
             <mat-label>Kindergartenfilter</mat-label>
             <mat-select (selectionChange)="doFilter($event.value)">
+                <mat-option value="">Bitte auswählen</mat-option>
                 <mat-option *ngFor="let kindergarden of storeService.kindergardens" [value]="kindergarden.name">{{kindergarden.name}}</mat-option>
             </mat-select>
         </mat-form-field>

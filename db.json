@@ -1,13 +1,6 @@
 {
   "childs": [
     {
-      "name": "test",
-      "kindergardenId": 1,
-      "birthDate": "2023-12-22T23:00:00.000Z",
-      "registrationDate": "2023-12-10T11:52:41.018Z",
-      "id": 1
-    },
-    {
       "name": "yunus",
       "kindergardenId": 4,
       "birthDate": "2023-12-22T23:00:00.000Z",
